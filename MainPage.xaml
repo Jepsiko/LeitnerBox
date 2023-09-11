@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LeitnerBox.MainPage"
+             xmlns:local="clr-namespace:LeitnerBox.Model"
+             xmlns:viewmodel="clr-namespace:LeitnerBox.ViewModel"
+             x:DataType="viewmodel:MainViewModel">
+
+    <Grid RowDefinitions="100, *, Auto"
+          ColumnDefinitions=".75*, .25*"
+          Padding="10"
+          RowSpacing="10"
+          ColumnSpacing="10">
+
+        <Image Grid.ColumnSpan="2"
+               Source="dotnet_bot.png"/>
+
+        <CollectionView Grid.Row="1"
+                        Grid.ColumnSpan="2"
+                        ItemsSource="{Binding Subjects}"
+                        SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="{x:Type local:Subject}">
+                    <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItems>
+                                <SwipeItem Text="Delete"
+                                           Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=DeleteCommand}"
+                                           CommandParameter="{Binding .}"
+                                           BackgroundColor="LightPink"/>
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+                        <Grid Padding="0,5">
+                            <Frame>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                           Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=TapCommand}"
+                                           CommandParameter="{Binding .}"/>
+                                </Frame.GestureRecognizers>
+                                <Label Text="{Binding Name}"
+                                       FontSize="18"/>
+                            </Frame>
+                        </Grid>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Entry Placeholder="Enter subject"
+               Text="{Binding Text}"
+               ClearButtonVisibility="WhileEditing"
+               Grid.Row="2"/>
+
+        <Button Text="Add"
+                Command="{Binding AddCommand}"
+                Grid.Row="2"
+                Grid.Column="1"/>
+
+    </Grid>
+
+</ContentPage>

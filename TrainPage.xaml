@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LeitnerBox.TrainPage"
+             xmlns:local="clr-namespace:LeitnerBox.Model"
+             xmlns:viewmodel="clr-namespace:LeitnerBox.ViewModel"
+             x:DataType="viewmodel:TrainViewModel"
+             Title="{Binding Subject.Name}">
+    
+    <Grid RowDefinitions="Auto, *, *, Auto, Auto"
+          ColumnDefinitions="0.5*, 0.5*"
+          Padding="10"
+          RowSpacing="10"
+          ColumnSpacing="10">
+
+        <Frame Grid.ColumnSpan="2">
+            <Grid ColumnDefinitions="Auto, *, Auto, Auto">
+                <Label Text="{Binding Drawer.Id, StringFormat='Drawer {0}'}"
+                   FontSize="18"/>
+                <Label Text="{Binding Index}"
+                   Grid.Column="2"
+                   FontSize="18"/>
+                <Label Text="{Binding Size, StringFormat='/{0}'}"
+                   Grid.Column="3"
+                   FontSize="18"/>
+            </Grid>
+        </Frame>
+        
+        <Frame Grid.Row="1"
+               Grid.ColumnSpan="2">
+            <Label Text="{Binding Current.Q}"
+                   FontSize="18"/>
+        </Frame>
+
+        <Frame Grid.Row="2"
+               Grid.ColumnSpan="2">
+            <Label Text="{Binding Answer}"
+                   FontSize="18"/>
+        </Frame>
+        
+        <Button Grid.Row="3"
+                Grid.ColumnSpan="2"
+                Text="Show answer"
+                Command="{Binding ShowCommand}"
+                FontSize="18"/>
+
+        <Button Grid.Row="4"
+                Text="X"
+                Command="{Binding FailCommand}"/>
+        
+        <Button Grid.Row="4"
+                Grid.Column="1"
+                Text="V"
+                Command="{Binding ValidateCommand}"/>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LeitnerBox.QuestionPage"
+             xmlns:local="clr-namespace:LeitnerBox.Model"
+             xmlns:viewmodel="clr-namespace:LeitnerBox.ViewModel"
+             x:DataType="viewmodel:QuestionViewModel"
+             Title="{Binding Subject.Name, StringFormat='Adding question to {0}'}">
+    <Grid RowDefinitions="*, *, Auto"
+          ColumnDefinitions="*"
+          Padding="10"
+          RowSpacing="10"
+          ColumnSpacing="10">
+        <Frame>
+            <Grid RowDefinitions="Auto, *">
+                <Label Text="Question:"
+                       FontSize="18"/>
+
+                <Editor Grid.Row="1"
+                        Text="{Binding Q}"
+                        FontSize="18"/>
+            </Grid>
+        </Frame>
+
+        <Frame Grid.Row="1">
+            <Grid RowDefinitions="Auto, *">
+                <Label Text="Answer:"
+                       FontSize="18"/>
+
+                <Editor Grid.Row="1"
+                        Text="{Binding A}"
+                        FontSize="18"/>
+            </Grid>
+        </Frame>
+
+        <Button Grid.Row="2"
+                Text="Add question"
+                Command="{Binding AddCommand}"
+                FontSize="18"/>
+    </Grid>
+</ContentPage>

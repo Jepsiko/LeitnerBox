@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LeitnerBox.SubjectPage"
+             xmlns:local="clr-namespace:LeitnerBox.Model"
+             xmlns:viewmodel="clr-namespace:LeitnerBox.ViewModel"
+             x:DataType="viewmodel:SubjectViewModel"
+             Title="{Binding Subject.Name}">
+    
+    <Grid RowDefinitions="*, Auto"
+          ColumnDefinitions=".5*, .5*"
+          Padding="10"
+          RowSpacing="10"
+          ColumnSpacing="10">
+
+        <CollectionView Grid.Row="0"
+                        Grid.ColumnSpan="2"
+                        ItemsSource="{Binding Subject.Drawers}"
+                        SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="{x:Type local:Drawer}">
+                    <Grid Padding="0,5">
+                        <Frame BackgroundColor="{Binding DarkColor}">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                           Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:SubjectViewModel}}, Path=TapCommand}"
+                                           CommandParameter="{Binding .}"/>
+                            </Frame.GestureRecognizers>
+                            <Grid ColumnDefinitions="auto, *, auto">
+
+                                <Label Text="{Binding Id, StringFormat='Drawer {0}'}"
+                                       FontSize="18"/>
+                                <Label Text="{Binding Size, StringFormat='({0} questions)'}"
+                                       FontSize="14"
+                                       VerticalOptions="Center"
+                                       Grid.Column="2"/>
+                            </Grid>
+                        </Frame>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button Text="Add Question"
+                Command="{Binding AddCommand}"
+                Grid.Row="1"
+                Grid.Column="0"/>
+
+        <Button Text="Train Subject"
+                Command="{Binding TrainCommand}"
+                Grid.Row="1"
+                Grid.Column="1"/>
+    </Grid>
+</ContentPage>
